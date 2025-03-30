@@ -15,8 +15,6 @@ import type { Metadata } from 'next';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export const dynamic = 'force-dynamic';
-
 export const metadata: Metadata = {
   description: 'Next.js 15 rebuild of Remix Contacts V2',
   title: 'Next Contacts',
