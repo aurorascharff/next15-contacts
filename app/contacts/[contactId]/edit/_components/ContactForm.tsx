@@ -76,7 +76,7 @@ export default function ContactForm({ contact }: { contact: Contact }) {
         <TextArea {...register('notes')} error={errors.notes?.message} className="grow" name="notes" rows={6} />
       </div>
       <div className="flex gap-2 self-start @sm:self-end">
-        <LinkButton theme="secondary" href={routes.contactId({ contactId: contact.id, search: { q } })}>
+        <LinkButton theme="secondary" href={routes.contactId({ contactId: contact.id, search: q ? { q } : undefined })}>
           Cancel
         </LinkButton>
         <SubmitButton loading={isSubmitting}>Save</SubmitButton>

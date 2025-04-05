@@ -4,7 +4,7 @@ import React from 'react';
 import { useFormStatus } from 'react-dom';
 import { SearchIcon, SpinnerIcon } from './icons';
 
-export default function SearchStatus({ searching }: { searching: boolean }) {
+export default function SearchStatus({ searching }: { searching?: boolean }) {
   const { pending } = useFormStatus();
   const isSearching = searching || pending;
 

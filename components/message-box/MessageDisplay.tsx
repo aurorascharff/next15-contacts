@@ -1,9 +1,9 @@
 import React from 'react';
 import { cn } from '@/utils/cn';
-import type { Message } from '@prisma/client';
+import type { OptimisticMessage } from './Messages';
 
 type Props = {
-  message: Message;
+  message: OptimisticMessage;
   userId: string;
   createdByName: string;
 };
@@ -31,7 +31,10 @@ export default function MessageDisplay({ message, userId, createdByName }: Props
           })}
         </span>
       </span>
-      {message.content}
+      <span>
+        {message.content}
+        {message.isSending && <span className="ml-1 text-gray-400"> Sending ...</span>}
+      </span>
     </div>
   );
 }
