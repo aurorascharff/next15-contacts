@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import React from 'react';
+import React, { useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import Input from '@/components/ui/Input';
@@ -15,10 +15,11 @@ import type { Contact } from '@prisma/client';
 
 export default function ContactForm({ contact }: { contact: Contact }) {
   const { q } = useSafeSearchParams('home');
+  const [isPending, startTransition] = useTransition();
   const {
     handleSubmit,
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<ContactSchemaType>({
     mode: 'onChange',
     resolver: zodResolver(contactSchema),
@@ -26,12 +27,12 @@ export default function ContactForm({ contact }: { contact: Contact }) {
   });
 
   const onSubmit = handleSubmit(async data => {
-    const response = await updateContact(contact.id, data);
-    if (response?.error) {
-      toast.error(response.error);
-    } else {
-      toast.success('Contact updated');
-    }
+    startTransition(async () => {
+      const response = await updateContact(contact.id, data);
+      if (response?.error) {
+        toast.error(response.error);
+      }
+    });
   });
 
   return (
@@ -79,7 +80,7 @@ export default function ContactForm({ contact }: { contact: Contact }) {
         <LinkButton theme="secondary" href={routes.contactId({ contactId: contact.id, search: q ? { q } : undefined })}>
           Cancel
         </LinkButton>
-        <SubmitButton loading={isSubmitting}>Save</SubmitButton>
+        <SubmitButton loading={isPending}>Save</SubmitButton>
       </div>
     </form>
   );
