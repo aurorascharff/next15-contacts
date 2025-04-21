@@ -10,7 +10,6 @@
 
 ## Server & Client Components: ContactPage
 
-
 - Remove "use client" from ContactPage, now a server component
 - ContactPage: Familiar? Typisk useffect, fetching to our api, many ways to write this, which is a also a problem. No types. Usually you would use a lib (React Query), let's try to survive without that. Loading and error state.
 - Make component async "contactPage", add await prisma query and delete useEffect.
