@@ -16,7 +16,7 @@ export default function NewContactButton() {
         });
       }}
     >
-      <SubmitButton onClick={() => {}} type="submit" theme="secondary">
+      <SubmitButton type="submit" theme="secondary">
         New
       </SubmitButton>
     </form>
