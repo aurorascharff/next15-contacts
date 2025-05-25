@@ -4,10 +4,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Suspense } from 'react';
 import ContactList from '@/components/ContactList';
+import NewContactButton from '@/components/NewContactButton';
 import Search from '@/components/Search';
 import Skeleton from '@/components/ui/Skeleton';
-import SubmitButton from '@/components/ui/SubmitButton';
-import { createEmptyContact } from '@/data/actions/contact';
 import { getContacts } from '@/data/services/contact';
 import Logo from '@/public/next-js.svg';
 import { routes } from '@/validations/routeSchema';
@@ -34,9 +33,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               <Suspense>
                 <Search />
               </Suspense>
-              <form action={createEmptyContact}>
-                <SubmitButton theme="secondary">New</SubmitButton>
-              </form>
+              <NewContactButton />
             </div>
             <Suspense fallback={<Skeleton className="flex grow flex-col px-10 py-6" />}>
               <ContactList contactsPromise={contacts} />
