@@ -1,9 +1,9 @@
 'use server';
 
-import { revalidatePath } from 'next/cache';
+import { revalidateTag } from 'next/cache';
 import { z } from 'zod';
+import { revalidationKeys } from '@/constants/revalidationKeys';
 import { prisma } from '@/db';
-import { routes } from '@/validations/routeSchema';
 import { getCurrentUser } from '../services/user';
 
 const messageSchema = z.object({
@@ -47,7 +47,7 @@ export async function submitMessage(_prevState: State, formData: FormData): Prom
     },
   });
 
-  revalidatePath(routes.home());
+  revalidateTag(revalidationKeys.messages(result.data.contactId));
 
   return {
     success: true,
